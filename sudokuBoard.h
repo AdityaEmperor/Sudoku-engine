@@ -10,14 +10,14 @@ using namespace std;
 
 class board {
     public: 
-    std::vector<std::vector<char>> grid;
+    std::vector<std::vector<int>> grid;
     int size;
     int subGridSize;
 
     board();
     board(int s);
-    board(std::vector<std::vector<char>> g);
-    char getCell(int row , int col);
+    board(std::vector<std::vector<int>> g);
+    int getCell(int row , int col);
     void setCell(int row , int col , int val);
     void printBoard();
 };

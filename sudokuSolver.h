@@ -10,8 +10,8 @@
 
 class solver : public board {
     bool isValid(board problem);
-    vector<vector<char>> solveGrid(board problem);
-    vector<vector<vector<char>>> allSolutions(board problem);
+    vector<vector<int>> solveGrid(board problem);
+    vector<vector<vector<int>>> allSolutions(board problem);
 };
 
 #endif

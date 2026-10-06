@@ -3,15 +3,15 @@ using namespace std;
 
 board::board() {
     board::size = 9;
-    grid = std::vector<std::vector<char>>(board::size, std::vector<char>(size, '.'));
+    grid = std::vector<std::vector<int>>(board::size, std::vector<int>(size, -1));
 }
 
 board::board(int s) {
     board::size = s;
-    grid = std::vector<std::vector<char>>(board::size, std::vector<char>(size, '.'));
+    grid = std::vector<std::vector<int>>(board::size, std::vector<int>(size, -1));
 }
 
-board::board(vector<vector<char>> g) {
+board::board(vector<vector<int>> g) {
     if(g.size() != g[0].size())
         return;
     
@@ -37,7 +37,7 @@ board::board(vector<vector<char>> g) {
 
 }
 
-char board::getCell(int row , int col) {
+int board::getCell(int row , int col) {
     std::cout << " board [" << row << "]["<< col << "] = " << board::grid[row][col] << std::endl; 
     return board::grid[row][col];
 }
@@ -49,6 +49,8 @@ void board::setCell(int row , int col , int val) {
 void board::printBoard() {
     for(int i=0;i<size;i++) {
         for(int j=0;j<size;j++) {
+            if(board::grid[i][j]==-1)
+            std::cout << " " << "." << " , " ;
             std::cout << " " << board::grid[i][j] << " , " ;
         }
         std::cout << "\n";

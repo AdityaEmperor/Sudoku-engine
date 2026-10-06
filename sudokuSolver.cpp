@@ -7,7 +7,7 @@ bool solver::isValid(board problem) {
         for(int i=0; i<problem.size ; i++) {
             unordered_map<int,int> rowf;
             for(int j=0 ; j<problem.size ; j++) {
-                if(problem.grid[i][j] == '.') {
+                if(problem.grid[i][j] == -1) {
                     continue;
                 }
                 if(!rowf.contains(problem.grid[i][j])) {
@@ -24,7 +24,7 @@ bool solver::isValid(board problem) {
         for(int j=0; j<problem.size ; j++) {
             unordered_map<int,int> colf;
             for(int i=0 ; i<problem.size ; i++) {
-                if(problem.grid[i][j] == '.') {
+                if(problem.grid[i][j] == -1) {
                     continue;
                 }
                 if(!colf.contains(problem.grid[i][j])) {
@@ -43,7 +43,7 @@ bool solver::isValid(board problem) {
                 unordered_map<int,int> subgridf;
                 for(int i=0 ; i<subGridSize ; i++) {
                     for(int j=0 ; j<subGridSize ; j++) {
-                        if(problem.grid[x+i][y+j] == '.') {
+                        if(problem.grid[x+i][y+j] == -1) {
                             continue;
                         }
                         if(!subgridf.contains(problem.grid[x+i][y+j])) {
@@ -61,10 +61,10 @@ bool solver::isValid(board problem) {
         return true;
 }
 
-vector<vector<char>> solver::solveGrid(board problem) {
+vector<vector<int>> solver::solveGrid(board problem) {
 
 }
 
-vector<vector<vector<char>>> solver::allSolutions(board problem){
+vector<vector<vector<int>>> solver::allSolutions(board problem){
 
 }
