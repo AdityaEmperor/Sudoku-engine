@@ -13,6 +13,7 @@ class board {
     int size;
 
     board();
+    board(int s);
     char getCell(int row , int col);
     void setCell(int row , int col , int val);
     void printBoard();

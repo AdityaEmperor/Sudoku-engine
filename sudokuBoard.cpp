@@ -1,7 +1,13 @@
 #include "sudokuBoard.h"
 
 board::board() {
-    grid = std::vector<std::vector<char>>(size, std::vector<char>(size, '.'));
+    board::size = 9;
+    grid = std::vector<std::vector<char>>(board::size, std::vector<char>(size, '.'));
+}
+
+board::board(int s) {
+    board::size = s;
+    grid = std::vector<std::vector<char>>(board::size, std::vector<char>(size, '.'));
 }
 
 char board::getCell(int row , int col) {
