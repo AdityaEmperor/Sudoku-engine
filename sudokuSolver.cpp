@@ -62,7 +62,7 @@ bool solver::isValid(board problem) {
 }
 
 vector<vector<int>> solver::solveGrid(board problem) {
-
+    
 }
 
 vector<vector<vector<int>>> solver::allSolutions(board problem){

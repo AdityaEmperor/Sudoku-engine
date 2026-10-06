@@ -1,5 +1,6 @@
 using namespace std;
 #ifndef SUDOKU_BOARD_H
+#define SUDOKU_BOARD_H
 #include <iostream>
 #include <string>
 #include <bits/stdc++.h>
