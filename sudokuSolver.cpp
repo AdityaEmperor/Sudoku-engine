@@ -89,5 +89,5 @@ vector<vector<int>> solver::solveGrid(const board &problem) {
 }
 
 vector<vector<vector<int>>> solver::allSolutions(const board &problem){
-
+    
 }
