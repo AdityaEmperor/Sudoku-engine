@@ -17,7 +17,7 @@ class board {
 
     board();
     board(int s);
-    board(std::vector<std::vector<int>> g);
+    board(const std::vector<std::vector<int>> &g);
     int getCell(int row , int col);
     void setCell(int row , int col , int val);
     void printBoard();

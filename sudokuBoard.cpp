@@ -3,20 +3,35 @@ using namespace std;
 
 board::board() {
     board::size = 9;
+    board::subGridSize = 3;
     grid = std::vector<std::vector<int>>(board::size, std::vector<int>(size, -1));
 }
 
 board::board(int s) {
     board::size = s;
     grid = std::vector<std::vector<int>>(board::size, std::vector<int>(size, -1));
+    switch(s) {
+        case 4:
+            board::subGridSize = 2;
+            break;
+        case 9:
+            board::subGridSize = 3;
+            break;
+        case 16:
+            board::subGridSize = 4;
+            break;
+        case 25:
+            board::subGridSize = 5;
+            break;
+    }
 }
 
-board::board(vector<vector<int>> g) {
-    if(g.size() != g[0].size())
-        return;
+board::board(const vector<vector<int>> &g) {
+    if(g.size() == 0) return;  
+    if(g.size() != g[0].size()) return;
     
-    int size = g.size();
-    if(size!=4 || size!=9 || size!=16 || size!=25)
+    board::size = g.size();
+    if(size!=4 && size!=9 && size!=16 && size!=25)
     return;
 
     board::grid = g;
@@ -51,6 +66,7 @@ void board::printBoard() {
         for(int j=0;j<size;j++) {
             if(board::grid[i][j]==-1)
             std::cout << " " << "." << " , " ;
+            else
             std::cout << " " << board::grid[i][j] << " , " ;
         }
         std::cout << "\n";

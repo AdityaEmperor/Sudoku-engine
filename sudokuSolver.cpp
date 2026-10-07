@@ -2,7 +2,7 @@
 #include "sudokuSolver.h"
 using namespace std;
 
-bool solver::isValid(board problem) {
+bool solver::isValid(const board &problem) {
     // rows
         for(int i=0; i<problem.size ; i++) {
             unordered_map<int,int> rowf;
@@ -38,11 +38,11 @@ bool solver::isValid(board problem) {
         }
 
         // subgrids
-        for(int x=0; x <= subGridSize * (subGridSize-1) ; x = x+subGridSize) {
-            for(int y=0; y <= subGridSize * (subGridSize-1) ; y = y+subGridSize) {
+        for(int x=0; x <= problem.subGridSize * (problem.subGridSize-1) ; x = x+problem.subGridSize) {
+            for(int y=0; y <= problem.subGridSize * (problem.subGridSize-1) ; y = y+problem.subGridSize) {
                 unordered_map<int,int> subgridf;
-                for(int i=0 ; i<subGridSize ; i++) {
-                    for(int j=0 ; j<subGridSize ; j++) {
+                for(int i=0 ; i<problem.subGridSize ; i++) {
+                    for(int j=0 ; j<problem.subGridSize ; j++) {
                         if(problem.grid[x+i][y+j] == -1) {
                             continue;
                         }
@@ -57,14 +57,37 @@ bool solver::isValid(board problem) {
                 }
             }
         }
-
         return true;
 }
 
-vector<vector<int>> solver::solveGrid(board problem) {
-    
+bool solver::solve(board &solution) {
+    for(int i=0 ; i<solution.size ; i++) {
+        for(int j=0 ; j<solution.size ; j++) {
+
+            if(solution.grid[i][j] == -1) 
+            {
+                for(int num = 1 ; num<=solution.size ; num++) {
+                    solution.grid[i][j] = num;
+                    if(solver::isValid(solution)) {
+                        if(solve(solution)) return true;
+                    }
+                    solution.grid[i][j] = -1; 
+                }
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
-vector<vector<vector<int>>> solver::allSolutions(board problem){
+vector<vector<int>> solver::solveGrid(const board &problem) {
+    board solution = problem;
+    if(!isValid(problem)) return {};
+
+    if(!solve(solution)) return {};
+    return solution.grid;
+}
+
+vector<vector<vector<int>>> solver::allSolutions(const board &problem){
 
 }

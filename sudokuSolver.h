@@ -10,9 +10,12 @@
 #include "sudokuBoard.h"
 
 class solver : public board {
-    bool isValid(board problem);
-    vector<vector<int>> solveGrid(board problem);
-    vector<vector<vector<int>>> allSolutions(board problem);
+    public:
+    bool isValid(const board &problem);
+    bool solve(board &solution);
+    public:
+    vector<vector<int>> solveGrid(const board &problem);
+    vector<vector<vector<int>>> allSolutions(const board &problem);
 };
 
 #endif
