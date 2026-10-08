@@ -10,8 +10,15 @@
 #include "sudokuBoard.h"
 #include "sudokuSolver.h"
 
-class sudokuGame {
-    
+class game : public solver{
+    public :
+    int difficulty;
+    int time;
+
+    game(int s = 9,int d = 1);
+    void puzzelGenerator();
+    void startGame();
+    void log();
 };
 
 #endif
