@@ -14,15 +14,18 @@
 class game : public board{
     public:
     mt19937 rng;
+    int size;
+    board problem;
+    board solution;
     int difficulty;
     int time;
 
-    game(int s = 9,int d = 1);
-    void fillBoard();
-    void removeCells();
+    game(int s,int d);
+    
+    static void generateOrder(std::vector<int> &order,int boxSize, std::mt19937 &rng);
     void puzzelGenerator();
-    void startGame();
-    void log();
+    // void startGame(); // generates puzzle
+    // void log(); // user file update
 };
 
 #endif

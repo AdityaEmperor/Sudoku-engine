@@ -8,6 +8,8 @@
 #include <thread>
 #include <chrono>
 #include "sudokuBoard.h"
+#include <algorithm>
+#include <random>
 
 class solver : public board {
     public:
