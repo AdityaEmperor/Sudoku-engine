@@ -214,6 +214,8 @@ int main()
         {
             float thickness = (i % 3 == 0) ? 4.f : 1.f;
             sf::Color lineColor(45, 50, 60);
+
+            // Vertical line.
             gridLine.setSize({
                 thickness,
                 GRID_SIZE * CELL_SIZE + thickness
@@ -224,6 +226,8 @@ int main()
                 BOARD_Y - thickness / 2.f
             });
             window.draw(gridLine);
+
+            // Horizontal line.
             gridLine.setSize({
                 GRID_SIZE * CELL_SIZE + thickness,
                 thickness
@@ -234,6 +238,7 @@ int main()
             });
             window.draw(gridLine);
         }
+
         window.draw(instructions);
         window.display();
     }
