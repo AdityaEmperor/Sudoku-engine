@@ -167,6 +167,11 @@ int main()
             }
         }
 
+        //window.clear(sf::Color(245, 247, 250));
+
+        //window.draw(instructions);
+        //window.display();
+    }
 
     return 0;
 }
