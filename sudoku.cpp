@@ -177,17 +177,27 @@ int main()
         {
             for (int col = 0; col < GRID_SIZE; ++col)
             {
-                
+                float x = BOARD_X + col * CELL_SIZE;
+                float y = BOARD_Y + row * CELL_SIZE;
+
+                cell.setPosition({x, y});
+                cell.setFillColor(sf::Color::White);
+                cell.setOutlineThickness(0.f);
+                window.draw(cell);
 
                 // Highlight the selected cell.
                 if (row == selectedRow && col == selectedCol)
                 {
-                    
+                    selection.setPosition({x, y});
+                    window.draw(selection);
                 }
 
                 if (board[row][col] != 0)
                 {
-                    
+                    sf::Text number(
+                        font,
+                        std::to_string(board[row][col]),
+                        30
                     );
 
                     number.setFillColor(sf::Color(35, 75, 150));
@@ -202,7 +212,7 @@ int main()
         // Draw the grid lines. Every third line is thicker.
         for (int i = 0; i <= GRID_SIZE; ++i)
         {
-           
+            
         }
 
         window.draw(instructions);
