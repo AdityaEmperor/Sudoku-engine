@@ -167,10 +167,25 @@ int main()
             }
         }
 
-        //window.clear(sf::Color(245, 247, 250));
+        window.clear(sf::Color(245, 247, 250));
 
-        //window.draw(instructions);
-        //window.display();
+        // Draw the title.
+        window.draw(title);
+
+        // Draw the 81 cells and their numbers.
+        for (int row = 0; row < GRID_SIZE; ++row)
+        {
+            
+        }
+
+        // Draw the grid lines. Every third line is thicker.
+        for (int i = 0; i <= GRID_SIZE; ++i)
+        {
+           
+        }
+
+        window.draw(instructions);
+        window.display();
     }
 
     return 0;
