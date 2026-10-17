@@ -212,9 +212,28 @@ int main()
         // Draw the grid lines. Every third line is thicker.
         for (int i = 0; i <= GRID_SIZE; ++i)
         {
-            
+            float thickness = (i % 3 == 0) ? 4.f : 1.f;
+            sf::Color lineColor(45, 50, 60);
+            gridLine.setSize({
+                thickness,
+                GRID_SIZE * CELL_SIZE + thickness
+            });
+            gridLine.setFillColor(lineColor);
+            gridLine.setPosition({
+                BOARD_X + i * CELL_SIZE - thickness / 2.f,
+                BOARD_Y - thickness / 2.f
+            });
+            window.draw(gridLine);
+            gridLine.setSize({
+                GRID_SIZE * CELL_SIZE + thickness,
+                thickness
+            });
+            gridLine.setPosition({
+                BOARD_X - thickness / 2.f,
+                BOARD_Y + i * CELL_SIZE - thickness / 2.f
+            });
+            window.draw(gridLine);
         }
-
         window.draw(instructions);
         window.display();
     }
