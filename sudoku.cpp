@@ -52,6 +52,12 @@ int main()
     instructions.setFillColor(sf::Color(65, 65, 65));
     instructions.setPosition({BOARD_X, BOARD_Y + GRID_SIZE * CELL_SIZE + 15.f});
 
+    while (window.isOpen())
+    {
+       
+        window.draw(instructions);
+        window.display();
+    }
 
     return 0;
 }
