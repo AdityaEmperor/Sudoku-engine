@@ -21,5 +21,13 @@ int main()
     );
 
     window.setFramerateLimit(60);
+
+    // Load a Windows system font.
+    sf::Font font;
+    if (!font.openFromFile("C:/Windows/Fonts/arial.ttf"))
+    {
+        return 1;
+    }
+
     return 0;
 }
