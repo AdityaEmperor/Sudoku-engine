@@ -54,10 +54,40 @@ int main()
 
     while (window.isOpen())
     {
-       
-        window.draw(instructions);
-        window.display();
-    }
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                window.close();
+            }
+
+            // Handle mouse clicks.
+            if (const auto* mouse =
+                    event->getIf<sf::Event::MouseButtonPressed>())
+            {
+                if (mouse->button == sf::Mouse::Button::Left)
+                {
+                    const float mx = static_cast<float>(mouse->position.x);
+                    const float my = static_cast<float>(mouse->position.y);
+
+                    int col = static_cast<int>((mx - BOARD_X) / CELL_SIZE);
+                    int row = static_cast<int>((my - BOARD_Y) / CELL_SIZE);
+
+                    if (mx >= BOARD_X &&
+                        mx < BOARD_X + GRID_SIZE * CELL_SIZE &&
+                        my >= BOARD_Y &&
+                        my < BOARD_Y + GRID_SIZE * CELL_SIZE)
+                    {
+                        selectedRow = row;
+                        selectedCol = col;
+                    }
+                    else
+                    {
+                        selectedRow = -1;
+                        selectedCol = -1;
+                    }
+                }
+            }
 
     return 0;
 }
