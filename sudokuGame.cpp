@@ -9,8 +9,7 @@ game::game(int s = 9, int d = 1)
     difficulty = d;
 }
 
-void game::generateOrder(vector<int>& order,
-                         int boxSize, mt19937& rng)
+void game::generateOrder(vector<int>& order,int boxSize, mt19937& rng)
 {
     int n = boxSize * boxSize;
 
