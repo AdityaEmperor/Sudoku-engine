@@ -175,7 +175,28 @@ int main()
         // Draw the 81 cells and their numbers.
         for (int row = 0; row < GRID_SIZE; ++row)
         {
-            
+            for (int col = 0; col < GRID_SIZE; ++col)
+            {
+                
+
+                // Highlight the selected cell.
+                if (row == selectedRow && col == selectedCol)
+                {
+                    
+                }
+
+                if (board[row][col] != 0)
+                {
+                    
+                    );
+
+                    number.setFillColor(sf::Color(35, 75, 150));
+
+                    // Approximate visual centering.
+                    number.setPosition({x + 24.f, y + 15.f});
+                    window.draw(number);
+                }
+            }
         }
 
         // Draw the grid lines. Every third line is thicker.
