@@ -89,5 +89,84 @@ int main()
                 }
             }
 
+            // Handle keyboard input.
+            if (const auto* key =
+                    event->getIf<sf::Event::KeyPressed>())
+            {
+                if (key->code == sf::Keyboard::Key::Escape)
+                {
+                    window.close();
+                }
+
+                if (key->code == sf::Keyboard::Key::R)
+                {
+                    board = {};
+                }
+
+                if (selectedRow != -1 && selectedCol != -1)
+                {
+                    // Enter numbers from the top row or numpad.
+                    int number = 0;
+
+                    switch (key->code)
+                    {
+                        case sf::Keyboard::Key::Num1:
+                        case sf::Keyboard::Key::Numpad1: number = 1; break;
+
+                        case sf::Keyboard::Key::Num2:
+                        case sf::Keyboard::Key::Numpad2: number = 2; break;
+
+                        case sf::Keyboard::Key::Num3:
+                        case sf::Keyboard::Key::Numpad3: number = 3; break;
+
+                        case sf::Keyboard::Key::Num4:
+                        case sf::Keyboard::Key::Numpad4: number = 4; break;
+
+                        case sf::Keyboard::Key::Num5:
+                        case sf::Keyboard::Key::Numpad5: number = 5; break;
+
+                        case sf::Keyboard::Key::Num6:
+                        case sf::Keyboard::Key::Numpad6: number = 6; break;
+
+                        case sf::Keyboard::Key::Num7:
+                        case sf::Keyboard::Key::Numpad7: number = 7; break;
+
+                        case sf::Keyboard::Key::Num8:
+                        case sf::Keyboard::Key::Numpad8: number = 8; break;
+
+                        case sf::Keyboard::Key::Num9:
+                        case sf::Keyboard::Key::Numpad9: number = 9; break;
+
+                        default: break;
+                    }
+
+                    if (number != 0)
+                    {
+                        board[selectedRow][selectedCol] = number;
+                    }
+
+                    if (key->code == sf::Keyboard::Key::Backspace ||
+                        key->code == sf::Keyboard::Key::Delete)
+                    {
+                        board[selectedRow][selectedCol] = 0;
+                    }
+
+                    // Navigate between cells.
+                    if (key->code == sf::Keyboard::Key::Left)
+                        selectedCol = (selectedCol + 8) % 9;
+
+                    if (key->code == sf::Keyboard::Key::Right)
+                        selectedCol = (selectedCol + 1) % 9;
+
+                    if (key->code == sf::Keyboard::Key::Up)
+                        selectedRow = (selectedRow + 8) % 9;
+
+                    if (key->code == sf::Keyboard::Key::Down)
+                        selectedRow = (selectedRow + 1) % 9;
+                }
+            }
+        }
+
+
     return 0;
 }
