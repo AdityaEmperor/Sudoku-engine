@@ -1,14 +1,25 @@
-g++ -std=c++17 -c main.cpp -IC:\Users\Aditya\Documents\libraries\SFML-3.1.0\include -o main.o
-
-g++ -std=c++17 -c sudokuBoard.cpp -IC:\Users\Aditya\Documents\libraries\SFML-3.1.0\include -o sudokuBoard.o
-
-g++ -std=c++17 -c sudokuSolver.cpp -IC:\Users\Aditya\Documents\libraries\SFML-3.1.0\include -o sudokuSolver.o
 
 
 
 
-g++ main.o sudokuBoard.o sudokuSolver.o -o sfml-app.exe -L"C:\Users\Aditya\Documents\libraries\SFML-3.1.0\lib" -lsfml-graphics -lsfml-window -lsfml-system
 
 
+----------------HOW TO RUN SOLVER-----------------------------------------------------------------
 
-.\sfml-app.exe
+1-run these:
+
+g++ -std=c++17 -c main.cpp -I<C:\Users\YourUserName\Documents\libraries\SFML-3.1.0\include> -o main.o
+
+g++ -std=c++17 -c sudokuBoard.cpp -IC:\YourUserName\Aditya\Documents\libraries\SFML-3.1.0\include -o sudokuBoard.o
+
+g++ -std=c++17 -c sudokuSolver.cpp -IC:\YourUserName\Aditya\Documents\libraries\SFML-3.1.0\include -o sudokuSolver.o
+
+
+2-then this:
+
+g++ main.o sudokuBoard.o sudokuSolver.o -o SudokuSolver.exe -L"C:\YourUserName\Aditya\Documents\libraries\SFML-3.1.0\lib" -lsfml-graphics -lsfml-window -lsfml-system
+
+
+3-finally this:
+
+.\SudokuSolver.exe
