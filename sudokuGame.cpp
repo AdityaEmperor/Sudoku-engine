@@ -125,12 +125,47 @@ void game::puzzelGenerator()
 
 int game::elapsedSeconds() const
 {
+    if (!timerStarted || gameFinished)
+        return time;
 
+    return static_cast<int>(
+        chrono::duration_cast<chrono::seconds>(
+            chrono::steady_clock::now() - startTime
+        ).count()
+    );
 }
 
 void game::startGame()
 {
+    if ((size != 4 && size != 9 && size != 16 && size != 25) ||
+        difficulty < 1 || difficulty > 3)
+    {
+        cerr << "Invalid Sudoku size or difficulty.\n";
+        return;
+    }
 
+    puzzelGenerator();
+
+    // Do not start if generation did not produce a correctly sized grid.
+    if (static_cast<int>(problem.grid.size()) != size ||
+        static_cast<int>(solution.grid.size()) != size)
+    {
+        cerr << "Puzzle generation failed.\n";
+        return;
+    }
+
+    originalPuzzle = problem.grid;
+    fixedCells.assign(size, vector<bool>(size, false));
+
+    for (int r = 0; r < size; r++)
+        for (int c = 0; c < size; c++)
+            fixedCells[r][c] = (originalPuzzle[r][c] != -1);
+
+    time = 0;
+    hints = 0;
+    gameFinished = false;
+    startTime = chrono::steady_clock::now();
+    timerStarted = true;
 }
 
 bool game::enterValue(int row, int col, int value)
@@ -150,7 +185,12 @@ bool game::check()
 
 int game::score() const
 {
+    int seconds = elapsedSeconds();
+    double baseScore = static_cast<double>(size) * size * difficulty * 10.0;
+    double timeFactor = 1.0 + seconds / 300.0;
 
+    int finalScore = static_cast<int>(baseScore / timeFactor - hints * 50.0);
+    return max(0, finalScore);
 }
 
 void game::log()
