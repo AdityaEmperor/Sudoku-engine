@@ -144,5 +144,19 @@ namespace
 
 int main()
 {
+    sf::RenderWindow window(
+        sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}),
+        "Sudoku"
+    );
+    window.setFramerateLimit(60);
 
+    sf::Font font;
+    if (!loadFont(font))
+    {
+        std::cerr << "Could not load a font. Install a font or update loadFont() "
+                     "with the path to a .ttf file.\n";
+        return 1;
+    }
+
+    return 0;
 }
