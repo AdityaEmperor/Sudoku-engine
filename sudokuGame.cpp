@@ -125,7 +125,14 @@ void game::puzzelGenerator()
 
 int game::elapsedSeconds() const
 {
+    if (!timerStarted || gameFinished)
+        return time;
 
+    return static_cast<int>(
+        chrono::duration_cast<chrono::seconds>(
+            chrono::steady_clock::now() - startTime
+        ).count()
+    );
 }
 
 void game::startGame()
@@ -140,7 +147,24 @@ bool game::enterValue(int row, int col, int value)
 
 bool game::hint()
 {
+    if (!timerStarted || gameFinished)
+        return false;
 
+    for (int r = 0; r < size; r++)
+    {
+        for (int c = 0; c < size; c++)
+        {
+            if (!fixedCells[r][c] &&
+                problem.grid[r][c] != solution.grid[r][c])
+            {
+                problem.grid[r][c] = solution.grid[r][c];
+                ++hints;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 bool game::check()
