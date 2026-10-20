@@ -158,5 +158,49 @@ int main()
         return 1;
     }
 
+    const std::vector<int> sizes = {4, 9, 16, 25};
+    int chosenSize = 9;
+    int chosenDifficulty = 1;
+
+    std::unique_ptr<game> sudoku;
+    int selectedRow = -1;
+    int selectedCol = -1;
+    std::string inputBuffer;
+    std::string status = "Choose grid size and difficulty, then click New Game.";
+    sf::Color statusColor = STATUS_COLOR;
+    bool started = false;
+    bool saved = false;
+    bool guiSolved = false;
+    std::vector<std::vector<bool>> fixedCells;
+    auto guiStartTime = std::chrono::steady_clock::now();
+
+    std::vector<Button> sizeButtons;
+    for (std::size_t i = 0; i < sizes.size(); ++i)
+    {
+        sizeButtons.push_back({
+            {{220.f + static_cast<float>(i) * 82.f, 48.f}, {70.f, 34.f}},
+            std::to_string(sizes[i]) + "x" + std::to_string(sizes[i]),
+            sizes[i] == chosenSize
+        });
+    }
+
+    std::vector<Button> difficultyButtons;
+    const std::vector<std::string> difficultyNames = {"Easy", "Medium", "Hard"};
+    for (int i = 0; i < 3; ++i)
+    {
+        difficultyButtons.push_back({
+            {{650.f + static_cast<float>(i) * 90.f, 48.f}, {78.f, 34.f}},
+            difficultyNames[static_cast<std::size_t>(i)],
+            i + 1 == chosenDifficulty
+        });
+    }
+
+    Button newGameButton{{{70.f, 100.f}, {125.f, 38.f}}, "New Game"};
+    Button hintButton{{{207.f, 100.f}, {90.f, 38.f}}, "Hint"};
+    Button checkButton{{{309.f, 100.f}, {90.f, 38.f}}, "Check"};
+    Button saveButton{{{411.f, 100.f}, {115.f, 38.f}}, "Save Score"};
+    Button clearButton{{{538.f, 100.f}, {90.f, 38.f}}, "Clear Cell"};
+
+
     return 0;
 }
