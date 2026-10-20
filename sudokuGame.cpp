@@ -137,7 +137,35 @@ int game::elapsedSeconds() const
 
 void game::startGame()
 {
+    if ((size != 4 && size != 9 && size != 16 && size != 25) ||
+        difficulty < 1 || difficulty > 3)
+    {
+        cerr << "Invalid Sudoku size or difficulty.\n";
+        return;
+    }
 
+    puzzelGenerator();
+
+    // Do not start if generation did not produce a correctly sized grid.
+    if (static_cast<int>(problem.grid.size()) != size ||
+        static_cast<int>(solution.grid.size()) != size)
+    {
+        cerr << "Puzzle generation failed.\n";
+        return;
+    }
+
+    originalPuzzle = problem.grid;
+    fixedCells.assign(size, vector<bool>(size, false));
+
+    for (int r = 0; r < size; r++)
+        for (int c = 0; c < size; c++)
+            fixedCells[r][c] = (originalPuzzle[r][c] != -1);
+
+    time = 0;
+    hints = 0;
+    gameFinished = false;
+    startTime = chrono::steady_clock::now();
+    timerStarted = true;
 }
 
 bool game::enterValue(int row, int col, int value)
