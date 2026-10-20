@@ -142,7 +142,52 @@ void game::startGame()
 
 bool game::enterValue(int row, int col, int value)
 {
+    if (!timerStarted || gameFinished)
+        return false;
 
+    if (row < 0 || row >= size || col < 0 || col >= size)
+        return false;
+
+    if (fixedCells.size() != static_cast<size_t>(size) ||
+        fixedCells[row].size() != static_cast<size_t>(size))
+        return false;
+
+    if (fixedCells[row][col])
+        return false;
+
+    if (value == 0)
+    {
+        problem.grid[row][col] = -1;
+        return true;
+    }
+
+    if (value < 1 || value > size)
+        return false;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (i != col && problem.grid[row][i] == value)
+            return false;
+
+        if (i != row && problem.grid[i][col] == value)
+            return false;
+    }
+
+    int boxSize = problem.subGridSize;
+    int startRow = (row / boxSize) * boxSize;
+    int startCol = (col / boxSize) * boxSize;
+
+    for (int r = startRow; r < startRow + boxSize; r++)
+    {
+        for (int c = startCol; c < startCol + boxSize; c++)
+        {
+            if ((r != row || c != col) && problem.grid[r][c] == value)
+                return false;
+        }
+    }
+
+    problem.grid[row][col] = value;
+    return true;
 }
 
 bool game::hint()
