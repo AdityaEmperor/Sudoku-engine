@@ -49,28 +49,96 @@ namespace
                   const std::string& value, unsigned int size,
                   sf::Vector2f position, sf::Color color = TEXT_COLOR)
     {
-
+        sf::Text text(font, value, size);
+        text.setFillColor(color);
+        text.setPosition(position);
+        window.draw(text);
     }
 
     void drawButton(sf::RenderWindow& window, const sf::Font& font,
                     const Button& button)
     {
-      
+        sf::RectangleShape shape({
+            button.bounds.size.x,
+            button.bounds.size.y
+        });
+        shape.setPosition(button.bounds.position);
+        shape.setFillColor(button.selected ? BUTTON_SELECTED : BUTTON_COLOR);
+        shape.setOutlineColor(sf::Color(175, 184, 196));
+        shape.setOutlineThickness(1.f);
+        window.draw(shape);
+
+        sf::Text label(font, button.label, 17);
+        label.setFillColor(TEXT_COLOR);
+        const sf::FloatRect textBounds = label.getLocalBounds();
+        label.setPosition({
+            button.bounds.position.x +
+                (button.bounds.size.x - textBounds.size.x) / 2.f -
+                textBounds.position.x,
+            button.bounds.position.y +
+                (button.bounds.size.y - textBounds.size.y) / 2.f -
+                textBounds.position.y
+        });
+        window.draw(label);
     }
 
     bool loadFont(sf::Font& font)
     {
-    
+        // Try common Windows and Linux font locations.
+        const std::vector<std::string> paths = {
+            "C:/Windows/Fonts/arial.ttf",
+            "C:/Windows/Fonts/segoeui.ttf",
+            "C:/Windows/Fonts/calibri.ttf",
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+            "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf"
+        };
+
+        for (const auto& path : paths)
+        {
+            if (font.openFromFile(path))
+                return true;
+        }
+        return false;
     }
 
     std::string formatTime(long long seconds)
     {
-
+        const long long minutes = seconds / 60;
+        const long long remainingSeconds = seconds % 60;
+        std::ostringstream out;
+        out << minutes << ':';
+        if (remainingSeconds < 10)
+            out << '0';
+        out << remainingSeconds;
+        return out.str();
     }
 
     int keyToDigit(sf::Keyboard::Key key)
     {
-    
+        switch (key)
+        {
+            case sf::Keyboard::Key::Num0:
+            case sf::Keyboard::Key::Numpad0: return 0;
+            case sf::Keyboard::Key::Num1:
+            case sf::Keyboard::Key::Numpad1: return 1;
+            case sf::Keyboard::Key::Num2:
+            case sf::Keyboard::Key::Numpad2: return 2;
+            case sf::Keyboard::Key::Num3:
+            case sf::Keyboard::Key::Numpad3: return 3;
+            case sf::Keyboard::Key::Num4:
+            case sf::Keyboard::Key::Numpad4: return 4;
+            case sf::Keyboard::Key::Num5:
+            case sf::Keyboard::Key::Numpad5: return 5;
+            case sf::Keyboard::Key::Num6:
+            case sf::Keyboard::Key::Numpad6: return 6;
+            case sf::Keyboard::Key::Num7:
+            case sf::Keyboard::Key::Numpad7: return 7;
+            case sf::Keyboard::Key::Num8:
+            case sf::Keyboard::Key::Numpad8: return 8;
+            case sf::Keyboard::Key::Num9:
+            case sf::Keyboard::Key::Numpad9: return 9;
+            default: return -1;
+        }
     }
 }
 
