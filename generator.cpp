@@ -4,6 +4,6 @@
 #include "sudokuSolver.h"
 
 int main() {
-    game x(9,1);
+    game x(25,2);
     x.puzzelGenerator();
 }
