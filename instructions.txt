@@ -1,4 +1,10 @@
+----------------HOW TO RUN GAME----------------------------------------------------------
 
+1-
+g++ -std=c++17 gameApp.cpp sudokuGame.cpp sudokuBoard.cpp sudokuSolver.cpp -IC:\Users\Aditya\Documents\libraries\SFML-3.1.0\include -L"C:\Users\Aditya\Documents\libraries\SFML-3.1.0\lib" -lsfml-graphics -lsfml-window -lsfml-system -o gameApp.exe
+
+2-
+./gameApp.exe
 
 
 ----------------HOW TO RUN SOLVER-----------------------------------------------------------------
