@@ -9,23 +9,11 @@ g++ -std=c++17 gameApp.cpp sudokuGame.cpp sudokuBoard.cpp sudokuSolver.cpp -IC:\
 
 ----------------HOW TO RUN SOLVER-----------------------------------------------------------------
 
-1-run these:
+1.
+g++ -std=c++20 sudoku_solver_app.cpp sudokuBoard.cpp sudokuSolver.cpp unordered_map.cpp -o sudoku_solver_app.exe -I"C:/Users/Aditya/Documents/libraries/SFML-3.1.0/include" -L"C:/Users/Aditya/Documents/libraries/SFML-3.1.0/lib" -lsfml-graphics -lsfml-window -lsfml-system
 
-g++ -std=c++17 -c main.cpp -I<C:\Users\YourUserName\Documents\libraries\SFML-3.1.0\include> -o main.o
-
-g++ -std=c++17 -c sudokuBoard.cpp -IC:\YourUserName\Aditya\Documents\libraries\SFML-3.1.0\include -o sudokuBoard.o
-
-g++ -std=c++17 -c sudokuSolver.cpp -IC:\YourUserName\Aditya\Documents\libraries\SFML-3.1.0\include -o sudokuSolver.o
-
-
-2-then this:
-
-g++ main.o sudokuBoard.o sudokuSolver.o -o SudokuSolver.exe -L"C:\YourUserName\Aditya\Documents\libraries\SFML-3.1.0\lib" -lsfml-graphics -lsfml-window -lsfml-system
-
-
-3-finally this:
-
-.\SudokuSolver.exe
+2.
+./sudoku_solver_app.exe
 
 
 
