@@ -17,9 +17,11 @@ g++ -std=c++17 sudoku_solver_app.cpp sudokuBoard.cpp sudokuSolver.cpp unordered_
 
 
 ----------------HOW TO RUN LAUNCHER-----------------------------------------------------------------
+1.
+g++ -std=c++17 launcher.cpp -IC:/Users/Aditya/Documents/libraries/SFML-3.1.0/include -L"C:/Users/Aditya/Documents/libraries/SFML-3.1.0/lib" -lsfml-graphics -lsfml-window -lsfml-system -o launcher.exe
 
-
-
+2.
+./launcher.exe
 
 nearly complete 25x25 sudoku grid
 -1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
