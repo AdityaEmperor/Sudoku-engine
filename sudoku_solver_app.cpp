@@ -14,7 +14,7 @@ constexpr unsigned WINDOW_WIDTH = 1400;
 constexpr unsigned WINDOW_HEIGHT = 850;
 
 const sf::Color BACKGROUND(22, 25, 34);
-const sf::Color PANEL(31, 36, 48);
+const sf::Color PANEL(31, 36, 48, 205); // Slight transparency lets the painting show through
 const sf::Color GRID_LINE(100, 111, 130);
 const sf::Color THICK_LINE(220, 225, 235);
 const sf::Color TEXT_COLOR(235, 239, 246);
@@ -92,6 +92,26 @@ int main() {
                             "Sudoku Solver", sf::Style::Titlebar |
                             sf::Style::Close | sf::Style::Resize);
     window.setFramerateLimit(60);
+
+    // Load the background painting from the executable's working directory.
+    sf::Texture backgroundTexture;
+    const bool backgroundLoaded =
+        backgroundTexture.loadFromFile("Starry_Night_Over_the_Rhone.jpg");
+
+    if (!backgroundLoaded) {
+        std::cerr << "Could not load Starry_Night_Over_the_Rhone.jpg. "
+                     "Place it beside the executable.\n";
+    } else {
+        backgroundTexture.setSmooth(true);
+    }
+
+    // SFML 3 Sprite keeps a reference to the texture, so the texture must
+    // remain alive for the entire application.
+    std::optional<sf::Sprite> backgroundSprite;
+    if (backgroundLoaded) {
+        backgroundSprite.emplace(backgroundTexture);
+        backgroundSprite->setColor(sf::Color(255, 255, 255, 125)); // Painting opacity
+    }
 
     sf::Font font;
     bool fontLoaded = font.openFromFile("arial.ttf");
@@ -330,6 +350,24 @@ int main() {
         }
 
         window.clear(BACKGROUND);
+
+        // Scale the image to cover the full window while preserving its aspect ratio.
+        if (backgroundSprite) {
+            const sf::Vector2u textureSize = backgroundTexture.getSize();
+            const sf::Vector2u windowSize = window.getSize();
+            if (textureSize.x > 0 && textureSize.y > 0) {
+                const float scaleX = static_cast<float>(windowSize.x) / textureSize.x;
+                const float scaleY = static_cast<float>(windowSize.y) / textureSize.y;
+                const float scale = std::max(scaleX, scaleY);
+                backgroundSprite->setScale({scale, scale});
+                const sf::FloatRect bounds = backgroundSprite->getGlobalBounds();
+                backgroundSprite->setPosition({
+                    (static_cast<float>(windowSize.x) - bounds.size.x) / 2.f,
+                    (static_cast<float>(windowSize.y) - bounds.size.y) / 2.f
+                });
+                window.draw(*backgroundSprite);
+            }
+        }
 
         drawText(window, font, "SUDOKU SOLVER", 28, {30.f, 18.f});
         drawText(window, font, "Choose board size", 15, {30.f, 43.f}, MUTED);

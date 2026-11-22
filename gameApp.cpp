@@ -150,6 +150,24 @@ int main()
     );
     window.setFramerateLimit(60);
 
+    // Load the faded Van Gogh background image from the same folder as the EXE.
+    sf::Texture backgroundTexture;
+    if (!backgroundTexture.loadFromFile("almond_blossom_van_gogh.jpg"))
+    {
+        std::cerr << "Could not load almond_blossom_van_gogh.jpg. "
+                     "Place it beside the executable and run from that folder.\n";
+        return 1;
+    }
+
+    sf::Sprite backgroundSprite(backgroundTexture);
+    const sf::Vector2u imageSize = backgroundTexture.getSize();
+    backgroundSprite.setScale({
+        static_cast<float>(WINDOW_WIDTH) / static_cast<float>(imageSize.x),
+        static_cast<float>(WINDOW_HEIGHT) / static_cast<float>(imageSize.y)
+    });
+    // Low alpha keeps the artwork atmospheric without competing with the game.
+    backgroundSprite.setColor(sf::Color(255, 255, 255, 130));
+
     sf::Font font;
     if (!loadFont(font))
     {
@@ -477,6 +495,7 @@ int main()
         }
 
         window.clear(BACKGROUND);
+        window.draw(backgroundSprite);
 
         drawText(window, font, "SUDOKU", 29, {70.f, 8.f});
         drawText(window, font, "Grid:", 16, {165.f, 55.f});
@@ -509,11 +528,11 @@ int main()
                     });
 
                     if (r == selectedRow && c == selectedCol)
-                        cell.setFillColor(SELECTED_COLOR);
+                        cell.setFillColor(sf::Color(255, 229, 150, 225));
                     else if (fixedCells[r][c])
-                        cell.setFillColor(FIXED_CELL_COLOR);
+                        cell.setFillColor(sf::Color(231, 238, 249, 215));
                     else
-                        cell.setFillColor(sf::Color::White);
+                        cell.setFillColor(sf::Color(255, 255, 255, 205));
 
                     window.draw(cell);
 
@@ -586,7 +605,7 @@ int main()
         {
             sf::RectangleShape placeholder({GRID_SIZE, GRID_SIZE});
             placeholder.setPosition({GRID_X, GRID_Y});
-            placeholder.setFillColor(sf::Color::White);
+            placeholder.setFillColor(sf::Color(255, 255, 255, 205));
             placeholder.setOutlineColor(GRID_LINE);
             placeholder.setOutlineThickness(1.f);
             window.draw(placeholder);
