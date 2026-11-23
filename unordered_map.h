@@ -36,6 +36,7 @@ private:
     }
 
 public:
+    //type alisases
     using key_type = K;
     using mapped_type = V;
     using size_type = std::size_t;
@@ -128,13 +129,9 @@ public:
         bool operator!=(const const_iterator& other) const { return !(*this == other); }
     };
 
-    explicit CustomUnorderedMap(std::size_t bucketCount = 8,
-                           const Hash& hash = Hash(),
-                           const KeyEqual& equal = KeyEqual())
-        : buckets_(new Bucket[bucketCount ? bucketCount : 8]),
-          bucketCount_(bucketCount ? bucketCount : 8),
-          size_(0), maxLoadFactor_(1.0f), hash_(hash), equal_(equal) {}
+    explicit CustomUnorderedMap(std::size_t bucketCount = 8,const Hash& hash = Hash(),const KeyEqual& equal = KeyEqual()): buckets_(new Bucket[bucketCount ? bucketCount : 8]),bucketCount_(bucketCount ? bucketCount : 8),size_(0), maxLoadFactor_(1.0f), hash_(hash), equal_(equal) {}
 
+    //initializer list constructor :Allows you to initialize the map with elements immediately.
     CustomUnorderedMap(std::initializer_list<std::pair<K, V>> items)
         : CustomUnorderedMap() {
         for (const auto& item : items) insert(item);
@@ -142,6 +139,7 @@ public:
 
     ~CustomUnorderedMap() { delete[] buckets_; }
 
+    //copy constructor
     CustomUnorderedMap(const CustomUnorderedMap& other)
         : buckets_(new Bucket[other.bucketCount_]),
           bucketCount_(other.bucketCount_), size_(0),
@@ -150,6 +148,7 @@ public:
         for (const auto& item : other) insert({item.first, item.second});
     }
 
+    //copy assignment operator
     CustomUnorderedMap& operator=(const CustomUnorderedMap& other) {
         if (this == &other) return *this;
         CustomUnorderedMap copy(other);
@@ -157,6 +156,7 @@ public:
         return *this;
     }
 
+    //move constructor
     CustomUnorderedMap(CustomUnorderedMap&& other)
         : buckets_(other.buckets_), bucketCount_(other.bucketCount_),
           size_(other.size_), maxLoadFactor_(other.maxLoadFactor_),
@@ -166,6 +166,7 @@ public:
         other.size_ = 0;
     }
 
+    //move assignment operator
     CustomUnorderedMap& operator=(CustomUnorderedMap&& other) {
         if (this == &other) return *this;
         delete[] buckets_;

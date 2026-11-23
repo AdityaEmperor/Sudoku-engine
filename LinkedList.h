@@ -23,10 +23,12 @@ private:
     std::size_t size_;
 
 public:
+    //default constructor
     LinkedList() : head_(nullptr), size_(0) {}
     ~LinkedList() { clear(); }
 
-    LinkedList(const LinkedList& other) : head_(nullptr), size_(0) {
+    // copy constructor
+    LinkedList(const LinkedList& other) : head_(nullptr), size_(0) { 
         Node* tail = nullptr;
         for (Node* cur = other.head_; cur; cur = cur->next) {
             Node* fresh = new Node(cur->key, cur->value);
@@ -37,6 +39,7 @@ public:
         }
     }
 
+    //copy assignment
     LinkedList& operator=(const LinkedList& other) {
         if (this == &other) return *this;
         LinkedList copy(other);
@@ -44,12 +47,14 @@ public:
         return *this;
     }
 
+    //move constructor
     LinkedList(LinkedList&& other) noexcept
         : head_(other.head_), size_(other.size_) {
         other.head_ = nullptr;
         other.size_ = 0;
     }
 
+    //move assignment
     LinkedList& operator=(LinkedList&& other) noexcept {
         if (this == &other) return *this;
         clear();
@@ -82,24 +87,28 @@ public:
     }
 
     // Returns a pointer to the value, or nullptr if the key is absent.
+    //find value for modifiable list
     V* findValue(const K& key) {
         for (Node* cur = head_; cur; cur = cur->next)
             if (cur->key == key) return &cur->value;
         return nullptr;
     }
 
+    //find value for read only list
     const V* findValue(const K& key) const {
         for (const Node* cur = head_; cur; cur = cur->next)
             if (cur->key == key) return &cur->value;
         return nullptr;
     }
 
+    //find node for modifiable list
     Node* findNode(const K& key) {
         for (Node* cur = head_; cur; cur = cur->next)
             if (cur->key == key) return cur;
         return nullptr;
     }
 
+    //find node for constant list
     const Node* findNode(const K& key) const {
         for (const Node* cur = head_; cur; cur = cur->next)
             if (cur->key == key) return cur;

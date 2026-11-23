@@ -121,8 +121,8 @@ int main() {
                      "or update the font path in main.cpp.\n";
         return 1;
     }
-
-    const std::vector<int> supportedSizes{4, 9, 16, 25};
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+    const std::vector<int> supportedSizes{4, 9, 16};
     std::vector<Button> sizeButtons;
     for (std::size_t i = 0; i < supportedSizes.size(); ++i) {
         sizeButtons.push_back({

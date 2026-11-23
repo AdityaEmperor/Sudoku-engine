@@ -19,12 +19,10 @@ int main()
         return 1;
     }
     sf::Sprite background(bgTexture);
-    float scale = std::max(800.f / bgTexture.getSize().x,
-                           600.f / bgTexture.getSize().y);
+    float scale = std::max(800.f / bgTexture.getSize().x,600.f / bgTexture.getSize().y);
     background.setScale({scale, scale});
-    background.setPosition({
-        (800.f - bgTexture.getSize().x * scale) / 2.f,
-        (600.f - bgTexture.getSize().y * scale) / 2.f
+    background.setPosition({(800.f - bgTexture.getSize().x * scale) / 2.f,
+    (600.f - bgTexture.getSize().y * scale) / 2.f
     });
 
     // 2. Load font
